@@ -275,8 +275,8 @@ export const productsByCategoryState = selectorFamily<Product[], "">({
     async ({ get }) => {
       const response = await fetch(`https://backend-nest-js-meeting.onrender.com/api/v1/jobs`);
       const data = await response.json();
-      console.log("productsByCategoryState==");
-      console.log(data.data.result);
+      //console.log("productsByCategoryState==");
+      //console.log(data.data.result);
       
       const allProducts = data.data.result;
       return allProducts.filter((product) =>
