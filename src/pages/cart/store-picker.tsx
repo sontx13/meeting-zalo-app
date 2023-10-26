@@ -36,7 +36,7 @@ export const StorePicker: FC = () => {
       {nearbyStores.state === "hasValue" &&
         createPortal(
           <ActionSheet
-            title="Các cửa hàng ở gần bạn"
+            title="Các cuộc họp ở gần bạn"
             visible={visible}
             onClose={() => setVisible(false)}
             actions={[
@@ -65,7 +65,7 @@ export const RequestStorePickerLocation: FC = () => {
   return (
     <ListItem
       onClick={() => retry((r) => r + 1)}
-      title="Chọn cửa hàng"
+      title="Chọn cuộc họp"
       subtitle="Yêu cầu truy cập vị trí"
     />
   );

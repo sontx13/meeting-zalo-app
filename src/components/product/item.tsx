@@ -4,14 +4,14 @@ import { Product } from "types/product";
 import { Box, Text, useNavigate } from "zmp-ui";
 import { ProductPicker } from "./picker";
 import { useSetRecoilState } from "recoil";
-import { selectedProductIdState } from "state";
+import { productState, selectedProductIdState } from "state";
 
 export const ProductItem: FC<{ product: Product }> = ({ product }) => {
   const navigate = useNavigate();
-  const setSelectedProductId = useSetRecoilState(selectedProductIdState);
+  const setSelectedProduct = useSetRecoilState(productState);
 
-  const gotoProduct = (productId: string) => {
-    setSelectedProductId(productId);
+  const gotoProduct = (product: Product) => {
+    setSelectedProduct(product);
     navigate("/cart");
   };
 
@@ -19,7 +19,7 @@ export const ProductItem: FC<{ product: Product }> = ({ product }) => {
     <ProductPicker product={product}>
       {() => (
         <div className="space-y-2" 
-        onClick={() => gotoProduct(product._id)}
+        onClick={() => gotoProduct(product)}
         >
           <Box className="w-full aspect-square relative">
             <img

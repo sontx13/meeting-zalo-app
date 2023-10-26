@@ -25,12 +25,12 @@ export const CartItems: FC = () => {
                 open();
               }}
               renderKey={({ product, options, quantity }) =>
-                JSON.stringify({ product: product.id, options, quantity })
+                JSON.stringify({ product: product._id, options, quantity })
               }
               renderLeft={(item) => (
                 <img
                   className="w-10 h-10 rounded-lg"
-                  src={item.product.image}
+                  src={item.product.company?.logo}
                 />
               )}
               renderRight={(item) => (
@@ -61,7 +61,7 @@ export const CartItems: FC = () => {
           className="bg-background rounded-xl py-8 px-4 text-center text-gray"
           size="xxSmall"
         >
-          Không có sản phẩm trong giỏ hàng
+          Không có thông tin cuộc họp
         </Text>
       )}
     </Box>

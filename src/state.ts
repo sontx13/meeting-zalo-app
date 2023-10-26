@@ -2,7 +2,7 @@ import { atom, selector, selectorFamily } from "recoil";
 import { getLocation, getPhoneNumber, getUserInfo } from "zmp-sdk";
 import logo from "static/logo.png";
 import { Category, CategoryId } from "types/category";
-import { Product, Variant } from "types/product";
+import { Product, ProductType, Variant } from "types/product";
 import { Cart } from "types/cart";
 import { Notification } from "types/notification";
 import { calculateDistance } from "utils/location";
@@ -14,6 +14,12 @@ export const categoryId = atom({
   key: "categoryId",
   default: "",
 });
+
+export const productId = atom({
+  key: "productId",
+  default: "",
+});
+
 
 export const userState = selector({
   key: "user",
@@ -265,6 +271,44 @@ export const selectedProductIdState = atom({
   default: "",
 });
 
+export const searchResultState = selector<Product[]>({
+  key: "searchResult",
+  get: async ({ get }) => {
+    const keyword = get(selectedProductIdState);
+    if (keyword.trim().length > 0) {
+      //const params = new URLSearchParams({ keyword }).toString();
+      const response = await fetch(`https://backend-nest-js-meeting.onrender.com/api/v1/jobs/${keyword}`);
+      const data = await response.json();
+      console.log("data===");
+      console.log(data.data);
+      return data.data;
+    }
+    return[];
+  },
+});
+
+export const productsByIdState = selectorFamily<Product[], any>({
+  key: "productsById",
+  // get:
+  //   (categoryId) =>
+  //   ({ get }) => {
+  //     const allProducts = get(productsState);
+  //     return allProducts.filter((product) =>
+  //       product.categoryId.includes(categoryId)
+  //     );
+  //   },
+  get:
+   (productId) =>
+    async ({ get }) => {
+      const response = await fetch(`https://backend-nest-js-meeting.onrender.com/api/v1/jobs/`+productId);
+      const data = await response.json();
+      console.log("data===");
+      console.log(data.data);
+      return data.data;
+    },
+});
+
+
 export const productsByCategoryState = selectorFamily<Product[], "">({
   key: "productsByCategory",
   // get:
@@ -293,6 +337,10 @@ export const productsByCategoryState = selectorFamily<Product[], "">({
 export const cartState = atom<Cart>({
   key: "cart",
   default: [],
+});
+
+export const productState = atom<Product>({
+  key: "productSelect"
 });
 
 export const totalQuantityState = selector({
