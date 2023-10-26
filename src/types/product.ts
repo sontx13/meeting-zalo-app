@@ -48,7 +48,7 @@ export type Variant = SingleOptionVariant | MultipleOptionVariant;
 // }
 
 export interface Product {
-  _id?: string;
+  _id: string;
   name: string;
   skills: string[];
   company?: {

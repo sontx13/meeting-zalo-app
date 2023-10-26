@@ -1,14 +1,26 @@
 import { FinalPrice } from "components/display/final-price";
 import React, { FC } from "react";
 import { Product } from "types/product";
-import { Box, Text } from "zmp-ui";
+import { Box, Text, useNavigate } from "zmp-ui";
 import { ProductPicker } from "./picker";
+import { useSetRecoilState } from "recoil";
+import { selectedProductIdState } from "state";
 
 export const ProductItem: FC<{ product: Product }> = ({ product }) => {
+  const navigate = useNavigate();
+  const setSelectedProductId = useSetRecoilState(selectedProductIdState);
+
+  const gotoProduct = (productId: string) => {
+    setSelectedProductId(productId);
+    navigate("/cart");
+  };
+
   return (
     <ProductPicker product={product}>
-      {({ open }) => (
-        <div className="space-y-2" onClick={open}>
+      {() => (
+        <div className="space-y-2" 
+        onClick={() => gotoProduct(product._id)}
+        >
           <Box className="w-full aspect-square relative">
             <img
               loading="lazy"

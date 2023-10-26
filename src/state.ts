@@ -257,7 +257,12 @@ export const recommendProductsState = selector<Product[]>({
 
 export const selectedCategoryIdState = atom({
   key: "selectedCategoryId",
-  default: "coffee",
+  default: "",
+});
+
+export const selectedProductIdState = atom({
+  key: "selectedProductId",
+  default: "",
 });
 
 export const productsByCategoryState = selectorFamily<Product[], "">({
