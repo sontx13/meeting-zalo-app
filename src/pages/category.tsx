@@ -37,7 +37,7 @@ const CategoryProducts: FC<{ categoryId: any }> = ({ categoryId }) => {
     return (
       <Box className="flex-1 bg-background p-4 flex justify-center items-center">
         <Text size="xSmall" className="text-gray">
-          Không có sản phẩm trong danh mục
+          Không có cuộc họp nào
         </Text>
       </Box>
     );
@@ -54,7 +54,7 @@ const CategoryProducts: FC<{ categoryId: any }> = ({ categoryId }) => {
 const CategoryPage: FC = () => {
   return (
     <Page className="flex flex-col">
-      <Header title="Danh mục" />
+      <Header title="Cuộc họp" />
       <CategoryPicker />
     </Page>
   );
