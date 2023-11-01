@@ -21,14 +21,13 @@ export interface ProductPickerProps {
   children: (methods: { open: () => void; close: () => void }) => ReactNode;
 }
 
-
 export const ProductPicker: FC<ProductPickerProps> = ({
   children,
   product,
   selected,
 }) => {
   const [visible, setVisible] = useState(false);
- 
+
   const [quantity, setQuantity] = useState(1);
   const setCart = useSetRecoilState(cartState);
 
@@ -115,11 +114,10 @@ export const ProductPicker: FC<ProductPickerProps> = ({
                   ></div>
                 </Text>
               </Box>
-             
             </Box>
           )}
         </Sheet>,
-        document.body
+        document.body,
       )}
     </>
   );

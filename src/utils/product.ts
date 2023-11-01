@@ -26,7 +26,7 @@ export function calcFinalPrice(product: Product, options?: SelectedOptions) {
           }
         } else {
           const selecteds = variant.options.filter((o) =>
-            currentOption.includes(o.key)
+            currentOption.includes(o.key),
           );
           selectedOptions.push(...selecteds);
         }
@@ -52,7 +52,7 @@ export function getDummyImage(filename: string) {
 
 export function isIdentical(
   option1: SelectedOptions,
-  option2: SelectedOptions
+  option2: SelectedOptions,
 ) {
   const option1Keys = Object.keys(option1);
   const option2Keys = Object.keys(option2);

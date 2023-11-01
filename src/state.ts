@@ -1,5 +1,5 @@
 import { atom, selector, selectorFamily } from "recoil";
-import { getLocation, getPhoneNumber, getUserInfo } from "zmp-sdk";
+import { getAccessToken, getLocation, getPhoneNumber, getUserInfo } from "zmp-sdk";
 import logo from "static/logo.png";
 import { Category, CategoryId } from "types/category";
 import { Product, ProductType, Variant } from "types/product";
@@ -20,7 +20,6 @@ export const productId = atom({
   default: "",
 });
 
-
 export const userState = selector({
   key: "user",
   get: () => getUserInfo({}).then((res) => res.userInfo),
@@ -39,11 +38,12 @@ export const userState = selector({
 //   ],
 // });
 
-
 export const categoriesState = selector<Category[]>({
   key: "categories",
   get: async () => {
-    const response = await fetch(`https://backend-nest-js-meeting.onrender.com/api/v1/companies`);
+    const response = await fetch(
+      `https://backend-nest-js-meeting.onrender.com/api/v1/companies`,
+    );
     const data = await response.json();
     //console.log(data.data.result);
     return data.data.result;
@@ -242,11 +242,12 @@ const description = `There is a set of mock banners available <u>here</u> in thr
 //   },
 // });
 
-
 export const productsState = selector<Product[]>({
   key: "products",
   get: async () => {
-    const response = await fetch(`https://backend-nest-js-meeting.onrender.com/api/v1/jobs`);
+    const response = await fetch(
+      `https://backend-nest-js-meeting.onrender.com/api/v1/jobs`,
+    );
     const data = await response.json();
     //console.log(data.data.result);
     return data.data.result;
@@ -277,13 +278,15 @@ export const searchResultState = selector<Product[]>({
     const keyword = get(selectedProductIdState);
     if (keyword.trim().length > 0) {
       //const params = new URLSearchParams({ keyword }).toString();
-      const response = await fetch(`https://backend-nest-js-meeting.onrender.com/api/v1/jobs/${keyword}`);
+      const response = await fetch(
+        `https://backend-nest-js-meeting.onrender.com/api/v1/jobs/${keyword}`,
+      );
       const data = await response.json();
       console.log("data===");
       console.log(data.data);
       return data.data;
     }
-    return[];
+    return [];
   },
 });
 
@@ -298,16 +301,17 @@ export const productsByIdState = selectorFamily<Product[], any>({
   //     );
   //   },
   get:
-   (productId) =>
+    (productId) =>
     async ({ get }) => {
-      const response = await fetch(`https://backend-nest-js-meeting.onrender.com/api/v1/jobs/`+productId);
+      const response = await fetch(
+        `https://backend-nest-js-meeting.onrender.com/api/v1/jobs/` + productId,
+      );
       const data = await response.json();
       console.log("data===");
       console.log(data.data);
       return data.data;
     },
 });
-
 
 export const productsByCategoryState = selectorFamily<Product[], "">({
   key: "productsByCategory",
@@ -320,16 +324,18 @@ export const productsByCategoryState = selectorFamily<Product[], "">({
   //     );
   //   },
   get:
-   (categoryId) =>
+    (categoryId) =>
     async ({ get }) => {
-      const response = await fetch(`https://backend-nest-js-meeting.onrender.com/api/v1/jobs`);
+      const response = await fetch(
+        `https://backend-nest-js-meeting.onrender.com/api/v1/jobs`,
+      );
       const data = await response.json();
       //console.log("productsByCategoryState==");
       //console.log(data.data.result);
-      
+
       const allProducts = data.data.result;
-      return allProducts.filter((product) =>
-        product.company?._id.includes(categoryId)
+      return allProducts.filter(
+        (product) => product.company?._id.includes(categoryId),
       );
     },
 });
@@ -340,7 +346,7 @@ export const cartState = atom<Cart>({
 });
 
 export const productState = atom<Product>({
-  key: "productSelect"
+  key: "productSelect",
 });
 
 export const totalQuantityState = selector({
@@ -358,7 +364,7 @@ export const totalPriceState = selector({
     return cart.reduce(
       (total, item) =>
         total + item.quantity * calcFinalPrice(item.product, item.options),
-      0
+      0,
     );
   },
 });
@@ -397,7 +403,7 @@ export const resultState = selector<Product[]>({
     const products = get(productsState);
     await wait(500);
     return products.filter((product) =>
-      product.name.trim().toLowerCase().includes(keyword.trim().toLowerCase())
+      product.name.trim().toLowerCase().includes(keyword.trim().toLowerCase()),
     );
   },
 });
@@ -464,13 +470,13 @@ export const nearbyStoresState = selector({
           location.latitude,
           location.longitude,
           store.lat,
-          store.long
+          store.long,
         ),
       }));
 
       // Sort the stores by distance from the current location
       const nearbyStores = storesWithDistance.sort(
-        (a, b) => a.distance - b.distance
+        (a, b) => a.distance - b.distance,
       );
 
       return nearbyStores;
@@ -524,11 +530,11 @@ export const locationState = selector<
       if (token) {
         console.warn(
           "Sử dụng token này để truy xuất vị trí chính xác của người dùng",
-          token
+          token,
         );
         console.warn(
           "Chi tiết tham khảo: ",
-          "https://mini.zalo.me/blog/thong-bao-thay-doi-luong-truy-xuat-thong-tin-nguoi-dung-tren-zalo-mini-app"
+          "https://mini.zalo.me/blog/thong-bao-thay-doi-luong-truy-xuat-thong-tin-nguoi-dung-tren-zalo-mini-app",
         );
         console.warn("Giả lập vị trí mặc định: VNG Campus");
         return {
@@ -550,16 +556,41 @@ export const phoneState = selector<string | boolean>({
       if (number) {
         return number;
       }
+      const access_token = await getAccessToken();
       console.warn(
         "Sử dụng token này để truy xuất số điện thoại của người dùng",
-        token
+        token,
       );
       console.warn(
-        "Chi tiết tham khảo: ",
-        "https://mini.zalo.me/blog/thong-bao-thay-doi-luong-truy-xuat-thong-tin-nguoi-dung-tren-zalo-mini-app"
+        "access_token===",
+        access_token,
       );
-      console.warn("Giả lập số điện thoại mặc định: 0337076898");
-      return "0337076898";
+
+      const endpoint = "https://graph.zalo.me/v2.0/me/info";
+      const secretKey = "OkVIcQT6T8LtBUFpr2wu"; 
+
+
+      const response = await fetch(
+        endpoint,
+        {
+          method: 'GET',
+          headers: { 
+            access_token: access_token,
+            code: JSON.stringify(token),
+            secret_key: secretKey 
+          }
+        }
+      );
+      const data = await response.json();
+
+      console.log(data);
+
+      // console.warn(
+      //   "Chi tiết tham khảo: ",
+      //   "https://mini.zalo.me/blog/thong-bao-thay-doi-luong-truy-xuat-thong-tin-nguoi-dung-tren-zalo-mini-app"
+      // );
+      //console.warn("Giả lập số điện thoại mặc định: 0337076898");
+      return data?.data?.number;
     }
     return false;
   },

@@ -18,13 +18,14 @@ export const ProductItem: FC<{ product: Product }> = ({ product }) => {
   return (
     <ProductPicker product={product}>
       {() => (
-        <div className="space-y-2" 
-        onClick={() => gotoProduct(product)}
-        >
+        <div className="space-y-2" onClick={() => gotoProduct(product)}>
           <Box className="w-full aspect-square relative">
             <img
               loading="lazy"
-              src={"https://backend-nest-js-meeting.onrender.com/images/company/"+product.company?.logo}
+              src={
+                "https://backend-nest-js-meeting.onrender.com/images/company/" +
+                product.company?.logo
+              }
               className="absolute left-0 right-0 top-0 bottom-0 w-full h-full object-cover object-center rounded-lg bg-skeleton"
             />
           </Box>

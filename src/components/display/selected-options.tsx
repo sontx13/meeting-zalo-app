@@ -15,23 +15,23 @@ export const DisplaySelectedOptions: FC<{
         .forEach((variant) => {
           if (variant.type === "single") {
             const selectedOption = variant.options.find(
-              (o) => o.key === options[variant.key]
+              (o) => o.key === options[variant.key],
             );
             if (selectedOption) {
               variants.push(
                 `${variant.label || variant.key}: ${
                   selectedOption.label || selectedOption.key
-                }`
+                }`,
               );
             }
           } else {
             const selectedOptions = variant.options.filter((o) =>
-              options[variant.key].includes(o.key)
+              options[variant.key].includes(o.key),
             );
             variants.push(
               `${variant.label || variant.key}: ${selectedOptions
                 .map((o) => o.label || o.key)
-                .join(", ")}`
+                .join(", ")}`,
             );
           }
         });

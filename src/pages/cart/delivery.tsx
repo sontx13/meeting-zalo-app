@@ -12,28 +12,28 @@ export const Delivery: FC = () => {
       <Text.Header>Tiện ích</Text.Header>
       <ListRenderer
         items={[
-          {
-            left: <Icon icon="zi-location" className="my-auto" />,
-            right: (
-              <Suspense fallback={<RequestStorePickerLocation />}>
-                <StorePicker />
-              </Suspense>
-            ),
-          },
-          {
-            left: <Icon icon="zi-clock-1" className="my-auto" />,
-            right: (
-              <Box flex className="space-x-2">
-                <Box className="flex-1 space-y-[2px]">
-                  <TimePicker />
-                  <Text size="xSmall" className="text-gray">
-                    Thời gian cuộc họp
-                  </Text>
-                </Box>
-                <Icon icon="zi-chevron-right" />
-              </Box>
-            ),
-          },
+          // {
+          //   left: <Icon icon="zi-location" className="my-auto" />,
+          //   right: (
+          //     <Suspense fallback={<RequestStorePickerLocation />}>
+          //       <StorePicker />
+          //     </Suspense>
+          //   ),
+          // },
+          // {
+          //   left: <Icon icon="zi-clock-1" className="my-auto" />,
+          //   right: (
+          //     <Box flex className="space-x-2">
+          //       <Box className="flex-1 space-y-[2px]">
+          //         <TimePicker />
+          //         <Text size="xSmall" className="text-gray">
+          //           Thời gian cuộc họp
+          //         </Text>
+          //       </Box>
+          //       <Icon icon="zi-chevron-right" />
+          //     </Box>
+          //   ),
+          // },
           {
             left: <Icon icon="zi-user" className="my-auto" />,
             right: (
@@ -42,18 +42,18 @@ export const Delivery: FC = () => {
               </Suspense>
             ),
           },
-          {
-            left: <Icon icon="zi-note" className="my-auto" />,
-            right: (
-              <Box flex>
-                <ElasticTextarea
-                  placeholder="Nhập ghi chú..."
-                  className="border-none px-0 w-full focus:outline-none"
-                  maxRows={4}
-                />
-              </Box>
-            ),
-          },
+          // {
+          //   left: <Icon icon="zi-note" className="my-auto" />,
+          //   right: (
+          //     <Box flex>
+          //       <ElasticTextarea
+          //         placeholder="Nhập ghi chú..."
+          //         className="border-none px-0 w-full focus:outline-none"
+          //         maxRows={4}
+          //       />
+          //     </Box>
+          //   ),
+          // },
         ]}
         limit={4}
         renderLeft={(item) => item.left}

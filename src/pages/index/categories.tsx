@@ -23,7 +23,13 @@ export const Categories: FC = () => {
           onClick={() => gotoCategory(category._id)}
           className="flex flex-col space-y-2 items-center"
         >
-          <img className="w-12 h-12" src={'https://backend-nest-js-meeting.onrender.com/images/company/'+category.logo} />
+          <img
+            className="w-12 h-12"
+            src={
+              "https://backend-nest-js-meeting.onrender.com/images/company/" +
+              category.logo
+            }
+          />
           <Text size="xxSmall" className="text-gray">
             {category.name}
           </Text>

@@ -52,10 +52,10 @@ export interface Product {
   name: string;
   skills: string[];
   company?: {
-      _id: string;
-      name: string;
-      logo?: string;
-  }
+    _id: string;
+    name: string;
+    logo?: string;
+  };
   location: string;
   salary: number;
   quantity: number;
