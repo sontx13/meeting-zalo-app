@@ -10,6 +10,7 @@ import { useRecoilValue } from "recoil";
 import { productState } from "state";
 import { Box, Text } from "zmp-ui";
 import { ProductItem } from "components/product/item";
+import { Utinity } from "./utinity";
 
 const CartPage: FC = () => {
   //const keyboardVisible = useVirtualKeyboardVisible();
@@ -21,7 +22,7 @@ const CartPage: FC = () => {
 
   return (
     <Page className="flex flex-col">
-      <Header title="Thông tin cuộc họp" showBackIcon={false} />
+      <Header title="Thông tin cuộc họp" />
       <Box className="bg-background grid grid-cols-2 gap-4 p-4">
         <Box className="w-full aspect-square relative">
           <img
@@ -36,7 +37,7 @@ const CartPage: FC = () => {
         <Text>{productSelect.name}</Text>
       </Box>
       {/* <Product productId={selectedProductId} />  */}
-      <Delivery />
+      <Utinity />
       <Divider size={12} />
       <TermsAndPolicies />
       <Divider size={32} className="flex-1" />

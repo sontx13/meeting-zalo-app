@@ -8,7 +8,7 @@ import { Box, Button, Text } from "zmp-ui";
 export const CartPreview: FC = () => {
   const quantity = useRecoilValue(totalQuantityState);
   const totalPrice = useRecoilValue(totalPriceState);
-
+  
   return (
     <Box flex className="sticky bottom-0 bg-background p-4 space-x-4">
       <Box
