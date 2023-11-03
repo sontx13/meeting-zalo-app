@@ -39,7 +39,7 @@ const CartPage: FC = () => {
       {/* <Product productId={selectedProductId} />  */}
       <Utinity />
       <Divider size={12} />
-      <TermsAndPolicies />
+      {/* <TermsAndPolicies /> */}
       <Divider size={32} className="flex-1" />
       {/* {!keyboardVisible && <CartPreview />} */}
     </Page>

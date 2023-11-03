@@ -9,6 +9,7 @@ import { calculateDistance } from "utils/location";
 import { Store } from "types/delivery";
 import { calcFinalPrice, getDummyImage } from "utils/product";
 import { wait } from "utils/async";
+import { Vote } from "types/vote";
 
 export const categoryId = atom({
   key: "categoryId",
@@ -344,6 +345,11 @@ export const cartState = atom<Cart>({
   key: "cart",
   default: [],
 });
+
+export const voteState = atom<Vote>({
+  key: "vote"
+});
+
 
 export const productState = atom<Product>({
   key: "productSelect",
