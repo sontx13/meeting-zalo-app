@@ -38,6 +38,14 @@ export const ProductItemSkeleton: FC = () => {
   );
 };
 
+export const VoteItemSkeleton: FC = () => {
+  return (
+    <div className="space-y-2">
+      <TextSkeleton>Biểu quyết 1</TextSkeleton>
+    </div>
+  );
+};
+
 export const ProductSlideSkeleton: FC = () => {
   return (
     <div className="space-y-3">

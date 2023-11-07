@@ -10,7 +10,8 @@ import ProfilePage from "pages/profile";
 import SearchPage from "pages/search";
 import { getSystemInfo } from "zmp-sdk";
 import { ScrollRestoration } from "./scroll-restoration";
-import { VotingPage } from "pages/cart/voting";
+import { VotePage } from "pages/cart/vote";
+
 
 
 if (getSystemInfo().platform === "android") {
@@ -35,7 +36,7 @@ export const Layout: FC = () => {
           <Route path="/category" element={<CategoryPage />}></Route>
           <Route path="/notification" element={<NotificationPage />}></Route>
           <Route path="/cart" element={<CartPage />}></Route>
-          <Route path="/voting" element={<VotingPage />}></Route>
+          <Route path="/voting" element={<VotePage />}></Route>
           <Route path="/profile" element={<ProfilePage />}></Route>
         </Routes>
       </Box>

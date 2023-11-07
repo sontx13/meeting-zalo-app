@@ -11,7 +11,7 @@ export const PersonPicker: FC = () => {
     return <RequestPersonPickerPhone />;
   }
 
-  return <ListItem title={`${user.name} - ${phone}`} subtitle="Người nhận" />;
+  return <ListItem title={`${user.name} - ${phone}`} subtitle="Thông tin người dùng" />;
 };
 
 export const RequestPersonPickerPhone: FC = () => {
@@ -19,7 +19,7 @@ export const RequestPersonPickerPhone: FC = () => {
   return (
     <ListItem
       onClick={() => retry((r) => r + 1)}
-      title="Thông tin người biểu quyết"
+      title="Thông tin người dùng"
       subtitle="Yêu cầu truy cập số điện thoại"
     />
   );

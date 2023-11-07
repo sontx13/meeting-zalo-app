@@ -9,17 +9,17 @@ import { calculateDistance } from "utils/location";
 import { Store } from "types/delivery";
 import { calcFinalPrice, getDummyImage } from "utils/product";
 import { wait } from "utils/async";
-import { Vote } from "types/vote";
+import { IVote } from "types/vote";
 
-export const categoryId = atom({
-  key: "categoryId",
-  default: "",
-});
+// export const categoryId = atom({
+//   key: "categoryId",
+//   default: "",
+// });
 
-export const productId = atom({
-  key: "productId",
-  default: "",
-});
+// export const productId = atom({
+//   key: "productId",
+//   default: "",
+// });
 
 export const userState = selector({
   key: "user",
@@ -46,7 +46,6 @@ export const categoriesState = selector<Category[]>({
       `https://backend-nest-js-meeting.onrender.com/api/v1/companies`,
     );
     const data = await response.json();
-    //console.log(data.data.result);
     return data.data.result;
   },
 });
@@ -250,7 +249,6 @@ export const productsState = selector<Product[]>({
       `https://backend-nest-js-meeting.onrender.com/api/v1/jobs`,
     );
     const data = await response.json();
-    //console.log(data.data.result);
     return data.data.result;
   },
 });
@@ -283,8 +281,6 @@ export const searchResultState = selector<Product[]>({
         `https://backend-nest-js-meeting.onrender.com/api/v1/jobs/${keyword}`,
       );
       const data = await response.json();
-      console.log("data===");
-      console.log(data.data);
       return data.data;
     }
     return [];
@@ -308,8 +304,6 @@ export const productsByIdState = selectorFamily<Product[], any>({
         `https://backend-nest-js-meeting.onrender.com/api/v1/jobs/` + productId,
       );
       const data = await response.json();
-      console.log("data===");
-      console.log(data.data);
       return data.data;
     },
 });
@@ -331,8 +325,6 @@ export const productsByCategoryState = selectorFamily<Product[], "">({
         `https://backend-nest-js-meeting.onrender.com/api/v1/jobs`,
       );
       const data = await response.json();
-      //console.log("productsByCategoryState==");
-      //console.log(data.data.result);
 
       const allProducts = data.data.result;
       return allProducts.filter(
@@ -341,12 +333,60 @@ export const productsByCategoryState = selectorFamily<Product[], "">({
     },
 });
 
+
+export const votesByProductState = selectorFamily<IVote[], string>({
+  key: "votesByProduct",
+  get:
+    (productId) =>
+    async () => {
+      const response = await fetch(
+        `https://backend-nest-js-meeting.onrender.com/api/v1/votes?jobId=`+productId,
+      );
+       //console.log(productId);
+      const data = await response.json();
+      
+      const allVotes = data.data.result;
+      //console.log(allVotes);
+      return allVotes;
+    },
+});
+
+
+export const votesState = selector<IVote[]>({
+  key: "votes",
+  get: async () => {
+    const response = await fetch(
+      `https://backend-nest-js-meeting.onrender.com/api/v1/votes`,
+    );
+    const data = await response.json();
+     console.log(data.data.result);
+    return data.data.result;
+  },
+});
+
+// export const votesByProductState = selector<IVote[]>({
+//   key: "votesByProduct",
+//   get: async ({ get }) => {
+//     const productId = get(selectedProductIdState);
+//      console.log(productId);
+//     if (productId.trim().length > 0) {
+//       const response = await fetch(
+//         `https://backend-nest-js-meeting.onrender.com/api/v1/votes?jobId=${productId}`,
+//       );
+//       const data = await response.json();
+//       console.log(data.data.result);
+//       return data.data.result;
+//     }
+//     return [];
+//   },
+// });
+
 export const cartState = atom<Cart>({
   key: "cart",
   default: [],
 });
 
-export const voteState = atom<Vote>({
+export const voteState = atom<IVote>({
   key: "vote"
 });
 
@@ -589,8 +629,6 @@ export const phoneState = selector<string | boolean>({
       );
       const data = await response.json();
 
-      console.log(data);
-
       // console.warn(
       //   "Chi tiết tham khảo: ",
       //   "https://mini.zalo.me/blog/thong-bao-thay-doi-luong-truy-xuat-thong-tin-nguoi-dung-tren-zalo-mini-app"
@@ -601,4 +639,24 @@ export const phoneState = selector<string | boolean>({
     return false;
   },
 });
+
+
+export async function postData(url = "", data = {}) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    mode: "cors", // no-cors, *cors, same-origin
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: "same-origin", // include, *same-origin, omit
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: "follow", // manual, *follow, error
+    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(data), // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
+}
+
 

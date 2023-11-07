@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, Suspense } from "react";
 import { Divider } from "components/divider";
 import { Header, Page } from "zmp-ui";
 import { CartItems } from "./cart-items";
@@ -7,7 +7,7 @@ import { TermsAndPolicies } from "./term-and-policies";
 import { Delivery } from "./delivery";
 import { useVirtualKeyboardVisible } from "hooks";
 import { useRecoilValue } from "recoil";
-import { productState } from "state";
+import {  productState } from "state";
 import { Box, Text } from "zmp-ui";
 import { ProductItem } from "components/product/item";
 import { Utinity } from "./utinity";
@@ -15,10 +15,7 @@ import { Utinity } from "./utinity";
 const CartPage: FC = () => {
   //const keyboardVisible = useVirtualKeyboardVisible();
   const productSelect = useRecoilValue(productState);
-
   // const result = useRecoilValue(searchResultState);
-  console.log("result==");
-  console.log(productSelect);
 
   return (
     <Page className="flex flex-col">
@@ -37,7 +34,9 @@ const CartPage: FC = () => {
         <Text>{productSelect.name}</Text>
       </Box>
       {/* <Product productId={selectedProductId} />  */}
-      <Utinity />
+      <Suspense>
+          <Utinity/>
+      </Suspense>
       <Divider size={12} />
       {/* <TermsAndPolicies /> */}
       <Divider size={32} className="flex-1" />

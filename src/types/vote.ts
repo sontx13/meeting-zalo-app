@@ -1,8 +1,12 @@
-export interface Vote {
-    _id: string;
+export interface IVote {
+    _id?: string;
     question: string;
-    answer:string;
-    userId: string;
-    description: string;
     status: string;
+    companyId: string;
+    jobId: string;
+    createdBy?: string;
+    isDeleted?: boolean;
+    deletedAt?: boolean | null;
+    createdAt?: string;
+    updatedAt?: string;
 }
